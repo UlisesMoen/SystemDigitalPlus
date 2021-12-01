@@ -11,14 +11,28 @@ class Clientes extends Controller {
     }
     public function index(){
         //obtengo los clients
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //sanitizamos los datos que vienen por POST
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        $clients = $this->clientModel->getClientes();
+            $data = [ 'buscar' => trim( $_POST['buscar']) ];
 
-        $data =[
-            'clients' => $clients
-        ];
-        
-        $this->view('clientes/index', $data);
+            $clients = $this->clientModel->getClientesByLike($data);
+
+            $data = [ 'clients' => $clients ];
+
+            $this->view('clientes/index', $data );
+
+        } 
+
+        if($_SERVER['REQUEST_METHOD'] == 'GET'){
+
+            $clients = $this->clientModel->getClientes();
+
+            $data = [ 'clients' => $clients ];
+            
+            $this->view('clientes/index', $data );
+        }        
 
     }
 
@@ -103,4 +117,3 @@ class Clientes extends Controller {
         }        
     }
 }
-

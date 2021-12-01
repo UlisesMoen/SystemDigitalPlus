@@ -2,7 +2,6 @@
 
 <?php require APPROOT . '/views/shared/aside.php'; ?>
 
-
 <main>
     <div class="container">
         <div class="row">
@@ -13,13 +12,12 @@
 
         <!-- Modal 2 - animado-Editar-->
         <?php require APPROOT . '/views/clientes/add.php'; ?>
-
+        
         <!-- Modal 2 - animado-Editar-->
         <?php require APPROOT . '/views/clientes/edit.php'; ?>
 
-
         <div class="col-md-0 my-2">
-            <form action="clientes.php" class="form-inline justify-content-end" method="POST">
+            <form action="<?php echo URLROOT . '/clientes'; ?>"class="form-inline justify-content-end" method="POST">
                 <label class="mr-2" for="">Buscar:</label><input class="form-control mr-sm-2" type="search" id="buscar" name="buscar" placeholder="Caracter a buscar...">
                 <button><i class="fas fa-search"></i></button>
             </form>
@@ -28,8 +26,8 @@
     <div class="container caja">
         <div class="row">
             <div class="col-lg-12">
-                <?php if (count($data['clients']) > 0) : ?>
-                    <div class="table-responsive">
+                <?php if ( count($data['clients']) > 0) : ?>
+                    <div class="tabla-responsive">
                         <table id="tablaClientes" class="table table-striped table-bordered table-condensen" style="width: 100%;">
                             <thead class="text-center">
                                 <tr>
@@ -45,7 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody id="myTable">
-                                <?php foreach ($data['clients'] as $cliente) : ?>
+                                <?php foreach ( $data['clients'] as $cliente) : ?>
                                     <tr>
                                         <td><?php echo $cliente->id; ?></td>
                                         <td><?php echo $cliente->nombre; ?></td>
@@ -58,23 +56,21 @@
                                         <td>
                                             <button class="btnEditar" onclick="showCliente(<?php echo $cliente->id; ?>)"><i class="fas fa-edit"></i></button>
                                             <button class="btnEliminar" onclick="deleteCliente(<?php echo $cliente->id; ?>, '<?php echo $cliente->nombre; ?>')"><i class="fas fa-trash-alt"></i></button>
-
-                                            <!-- que sea un ancord -->
-                                            <button class="btnBloquear"><a href="https:<?php echo $cliente->ip; ?>" target="_blank"> <i class="fas fa-ban"></i></a></button>
-
+                                            <button class="btnBloquear"><i class="fas fa-ban"></i></button>
+                                            
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?> 
                             </tbody>
                         </table>
                     </div>
-                <?php endif; ?>
-
-                <?php if (count($data['clients']) == 0) : ?>
+                <?php endif; ?>   
+                
+                <?php if ( count($data['clients']) == 0) : ?>
                     <div class="alert alert-danger" role="alert">
                         Sin clientes registrados
                     </div>
-                <?php endif; ?>
+                <?php endif; ?>   
             </div>
         </div>
     </div>
